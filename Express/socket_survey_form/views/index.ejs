@@ -1,0 +1,95 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Survey Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form action="">
+                    <div class="row mt-5">
+                        <div class="form-group">
+                            <label for="name">Your Name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="city">Dojo Location:</label>
+                            <select class="form-control" id="city" name="city">
+                                <option>New York</option>
+                                <option>Los Angeles</option>
+                                <option>San Francisco</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="lang">Favorite Language:</label>
+                            <select class="form-control" id="lang" name="lang">
+                                <option>JavaScript</option>
+                                <option>Python</option>
+                                <option>C#</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="comments">Comments (optional)</label>
+                            <textarea class="form-control" id="comments" rows="3" name="comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <span id="name_res"></span>
+                <span id="loc_res"></span>
+                <span id="lang_res"></span>
+                <span id="comments_res"></span>
+                <span id="number"></span>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $('form').submit(function (e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit("result", {
+                    name: $("#name").val(),
+                    location: $("#city").val(),
+                    language: $("#lang").val(),
+                    comments: $("#comments").val()
+                });
+                return false;
+            });
+            socket.on('result', function (msg) {
+                $('#name_res').html("<div class='row ml-3 mt-5'><p class ='mr-2' style='font-weight: bold;'>Name: </p> " + msg.name + "</div>");
+                $('#loc_res').html("<div class='row ml-3'><p class ='mr-2' style='font-weight: bold;'>Dojo Location: </p> " + msg.location + "</div>");
+                $('#lang_res').html("<div class='row ml-3'><p class ='mr-2' style='font-weight: bold;'>Favorite Language: </p> " + msg.language + "</div>");
+                $('#comments_res').html("<div class='row ml-3'><p class ='mr-2' style='font-weight: bold;'>Comments: </p> " + msg.comments + "</div>");
+
+            });
+            socket.on('random_number', function (data) {
+                $('#number').html("<div class='row ml-3'> <small>Your lucky number emitted by the server is : " + JSON.stringify(data.response) + "</small></div>");
+            });
+        });
+    </script>
+</body>
+
+</html>
