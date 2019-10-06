@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Epic Game</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-4">
+            <div id="number"></div>
+        </div>
+        <div class="row">
+            <p>Push the buttons to update the count.</p>
+        </div>
+        <div class="row">
+            <form action="" id="add">
+                <input type="hidden" id="m">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+
+            <form action="" id="reset">
+                <input type="hidden" id="h">
+                <button class="btn btn-danger ml-3" type="submit">Reset</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            $('#add').submit(function (e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('add', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            $('#reset').submit(function (e) {
+                e.preventDefault(); // prevents page reloading
+                socket.emit('reset', $('#h').val());
+                $('#h').val('');
+                return false;
+            });
+            socket.on('number', function (data) {
+                $('#number').html("<h4> Thu button has been pushed " + JSON.stringify(data.response) + " time(s)</h4>");
+            });
+        });
+    </script>
+</body>
+
+</html>
