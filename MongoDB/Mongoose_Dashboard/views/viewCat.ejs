@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>INFO</title>
+    <style>
+        button {
+            background: none !important;
+            border: none;
+            padding: 0 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color:#007BFF;
+            cursor: pointer;
+        }
+
+        button:hover {
+            text-decoration: underline;
+            color: #0056B4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-4">
+            <h5>Name:</h5>
+            <p class="ml-2"><%= cat.name %></p>
+        </div>
+        <div class="row">
+            <h5>Favorite Food:</h5>
+            <p class="ml-2"><%= cat.food %></p>
+        </div>
+        <div class="row">
+            <h5>Age:</h5>
+            <p class="ml-2"><%= cat.age %></p>
+        </div>
+        <div class="row">
+            <a href="/cats/edit/<%= cat.id %>" class="mr-2">Edit</a> |<form action="/cats/destroy/<%= cat.id %>"
+                method="POST"><button type="submit" class="mr-2 ml-2">Delete</button></form> | <a href="/"
+                class="ml-2">Back</a>
+        </div>
+    </div>
+</body>
+
+</html>
