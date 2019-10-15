@@ -122,7 +122,7 @@ app.post('/add_comment/:id', function (req, res) {
             if (err) {
                 console.log('something went wrong');
                 console.log(comment.errors);
-                res.redirect('/')
+                res.redirect('/');
             }
             else {
                 console.log('successfully added a Comment!');
