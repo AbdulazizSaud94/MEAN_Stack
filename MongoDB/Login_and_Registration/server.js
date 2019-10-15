@@ -107,6 +107,8 @@ app.post('/register', (req, res) => {
                     password: hashed_password,
                     birthday: req.body.reg_birthday,
                 });
+                req.session.user_id = user._id;
+                req.session.user_email = user.email;
                 user.save()
                     .then(() => res.redirect('/home'));
             })
@@ -118,7 +120,31 @@ app.post('/register', (req, res) => {
     }
 });
 
+
+app.post('/login', (req, res) => {
+    console.log(" req.body: ", req.body);
+    User.findOne(
+        { email: req.body.log_email, },
+        (error, user) => {
+            if (!user) {
+                console.log("Something went wrong!");
+                console.log(error);
+                res.redirect("/");
+            } else {
+                req.session.user_email = user.email;
+                req.session.user_id = user._id;
+                res.redirect('/home');
+            }
+        }
+    );
+});
+
+
 app.get('/home', (req, res) => {
+    console.log(req.session.user_email);
+    res.locals.user_id = req.session.user_id;
+    res.locals.user_email = req.session.user_email;
+    console.log(res.locals.user_email);
     res.render("home");
 });
 
