@@ -98,7 +98,7 @@ app.post('/register', (req, res) => {
         res.redirect('/');
     }
     else {
-        bcrypt.hash('password_from_form', 10)
+        bcrypt.hash(req.body.reg_pass, 10)
             .then(hashed_password => {
                 const user = new User({
                     first_name: req.body.reg_first_name,
@@ -131,9 +131,21 @@ app.post('/login', (req, res) => {
                 console.log(error);
                 res.redirect("/");
             } else {
-                req.session.user_email = user.email;
-                req.session.user_id = user._id;
-                res.redirect('/home');
+                console.log(user.password);
+                console.log(req.body.log_pass);
+                bcrypt.compare(req.body.log_pass, user.password, function (err, valid) {
+                    if (!valid) {
+                        console.log(valid);
+                        res.redirect("/");
+
+                    } else {
+                        console.log(valid);
+                        req.session.user_email = user.email;
+                        req.session.user_id = user._id;
+                        res.redirect('/home');
+                    }
+                });
+
             }
         }
     );
