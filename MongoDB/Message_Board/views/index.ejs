@@ -77,11 +77,23 @@
                         </div>
                     </form>
                 </div>
-
+                <br>
+                <% if(post.comments.length != 0){%>
+                <a data-toggle="collapse" href="#comments_<%= post.id%>">Show comments</a>
+                <div id="comments_<%= post.id%>" class="collapse">
+                    <% for (var comment of post.comments) { %>
+                    <div class="row">
+                        <span>"<%= comment.comment%>"</span>
+                    </div>
+                    <div class="row">
+                        <small>By: <%= comment.commenter%></small>
+                    </div>
+                    <%}%>
+                </div> <% } %>
+                </div>
             </div>
+            <% } %>
         </div>
-        <% } %>
-    </div>
 </body>
 
 </html>
