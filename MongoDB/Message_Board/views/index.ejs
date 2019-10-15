@@ -6,16 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <title>Home</title>
 </head>
 
 <body>
+    <!-- based on the structure of your messages, determine how to display them -->
+    <% if(messages.registration) { %>
+    <div class="alert alert-danger" role="alert">
+        <% for (var x of messages.registration) { %>
+        <ul>
+            <li><%= x %></li>
+        </ul>
+        <% } %>
+    </div>
+
+    <% } %>
     <div class="container">
         <div class="row">
             <h2>The Dojo Message Board</h2>
         </div>
         <hr class="mb-5">
-        <form action="/add_message" method="post" class="">
+        <form action="/add_message" method="post">
             <div class="form-group row">
                 <label for="message_name">Name:</label>
                 <input type="text" class="form-control w-50 ml-3" id="message_name" name="message_name">
@@ -35,6 +49,38 @@
         <div class="row mt-5">
             <h3>Messages</h3>
         </div>
+        <% for (var post of posts) { %>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= post.name %></h5>
+                <p class="card-text"><%= post.content %></p>
+                <small>Created At: <%= post.createdAt%></small>
+                <hr>
+                <a data-toggle="collapse" href="#colap_<%= post.id%>">Leave a comment</a>
+                <div id="colap_<%= post.id%>" class="collapse">
+                    <form action="/add_comment/<%= post.id %>" method="POST">
+                        <div class="form-group row">
+                            <label for="comment_name">Name:</label>
+                            <input type="text" class="form-control w-50 ml-3" id="comment_name" name="comment_name">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="comment_text">Comment:</label>
+                            </div>
+                            <div class="row">
+                                <textarea class="form-control w-75" id="comment_text" name="comment_text"
+                                    rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary">Add Comment</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <% } %>
     </div>
 </body>
 
