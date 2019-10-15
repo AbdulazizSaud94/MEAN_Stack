@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>The Dojo Message Board</h2>
+        </div>
+        <hr class="mb-5">
+        <form action="/add_message" method="post" class="">
+            <div class="form-group row">
+                <label for="message_name">Name:</label>
+                <input type="text" class="form-control w-50 ml-3" id="message_name" name="message_name">
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="message_text">Message:</label>
+                </div>
+                <div class="row">
+                    <textarea class="form-control w-75" id="message_text" name="message_text" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Post Message</button>
+            </div>
+        </form>
+        <div class="row mt-5">
+            <h3>Messages</h3>
+        </div>
+    </div>
+</body>
+
+</html>
