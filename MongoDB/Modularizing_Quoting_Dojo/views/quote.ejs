@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Quotes</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-3">
+            <h3>Here are the awesome quotes</h3>
+        </div>
+        <% for (var quote of quotes) { %>
+        <div class="row mt-4">
+            <span>"<%= quote.quote %>"</span>
+        </div>
+        <div class="row">
+                <small><%= quote.name %> at <%= quote.createdAt %></small>
+
+        </div>
+        <% } %>
+
+        <div class="row mt-4">
+            <a href="/" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+</body>
+
+</html>
