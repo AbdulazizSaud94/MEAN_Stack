@@ -1,4 +1,4 @@
-let Quote = require('../../models/quote');
+let Quote = require('../models/quote');
 
 module.exports = {
 
