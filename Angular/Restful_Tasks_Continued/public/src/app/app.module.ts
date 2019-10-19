@@ -4,10 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { AppComponent } from './app.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,

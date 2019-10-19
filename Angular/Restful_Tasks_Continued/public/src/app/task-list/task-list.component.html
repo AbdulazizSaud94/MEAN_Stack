@@ -1,0 +1,8 @@
+<h2>My Tasks List</h2>
+
+<ul *ngFor="let task of tasks"><h3>Task title: {{task.title}}</h3>
+    <li>Task description: {{task.description}}</li>
+    <li>Created at: {{task.createdAt}}</li>
+    <li>Is completed: {{task.completed}}</li>
+</ul>
+
