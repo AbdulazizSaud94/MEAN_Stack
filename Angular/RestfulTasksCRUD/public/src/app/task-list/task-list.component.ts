@@ -8,13 +8,16 @@ import { HttpService } from '../http.service';
 })
 export class TaskListComponent implements OnInit {
   taskDetails = {};
-  tasks: any;
+  tasks = {};
+  newTask = {};
+  task = {};
 
   constructor(private _httpService: HttpService) {
 
   }
 
   ngOnInit() {
+    this.newTask = { title: '', description: '' };
   }
 
   getTasksFromService() {
@@ -26,7 +29,13 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-
+  onSubmit() {
+    let observable = this._httpService.addTask(this.newTask)
+    observable.subscribe(data => {
+      this.task = data
+    })
+    this.newTask = { title: "", description: "" }
+  }
 
   showDetails(title: string, description: string, createdAt: string, completed: string): void {
     this.taskDetails = {
