@@ -38,6 +38,24 @@ module.exports = {
                 res.json({message: "Success", removed: true});
             }
         })
-    }
+    },
+    
+    editTask: function (req, res) {
+        console.log('ahii')
+        Task.updateOne({_id : req.params.id}, {title: req.body.title,
+            description: req.body.description, completed: req.body.completed
+            })
+                .then(data => {
+                    console.log('data updated', data)
+                    res.json({data: data});
+                })
+                .catch(err => {
+                    console.log("We have an error!", err);
+                    for (var key in err.errors) {
+                        req.flash('registration', err.errors[key].message);
+                    }
+                    res.json(err);
+                });
+    },
 
 }

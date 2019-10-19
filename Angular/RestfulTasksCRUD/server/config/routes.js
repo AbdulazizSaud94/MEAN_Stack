@@ -8,7 +8,7 @@ module.exports = function (app) {
 
     app.post("/task", tasks.addTask)
 
-    // app.put("/tasks/:id", tasks.editTask)
+    app.put("/tasks/:id", tasks.editTask)
 
     app.delete("/tasks/:id", tasks.deleteTask)
 }
