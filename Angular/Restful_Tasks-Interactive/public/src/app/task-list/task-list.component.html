@@ -1,0 +1,29 @@
+<h2>My Tasks List</h2>
+
+<button (click)="getTasksFromService()" class="btn btn-primary mt-4 mb-3">Show Tasks</button>
+
+<!-- 
+<ul *ngFor="let task of tasks">
+    <h3>Task title: {{task.title}}</h3>
+    <button (click)="getTasksFromService()" class="btn btn-primary mt-4 mb-3">Show Details</button>
+    <li>Task description: {{task.description}}</li>
+    <li>Created at: {{task.createdAt}}</li>
+    <li>Is completed: {{task.completed}}</li>
+</ul> -->
+
+<div class="list-group" *ngFor="let task of tasks">
+    <button (click)="showDetails(task.title, task.description, task.createdAt, task.completed)"
+        class="list-group-item list-group-item-action">Task title: {{task.title}}</button>
+</div>
+
+<div *ngIf="taskDetails.title" class="mt-4">
+    <div class="card">
+        <div class="card-header">
+            {{taskDetails.title}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">description: {{taskDetails.description}}</h5>
+            <p class="card-text">Created at: {{taskDetails.createdAt}}, completed: {{taskDetails.completed}} </p>
+        </div>
+    </div>
+</div>
